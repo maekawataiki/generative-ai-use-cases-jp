@@ -2,6 +2,15 @@ import { Template } from 'aws-cdk-lib/assertions';
 import * as cdk from 'aws-cdk-lib';
 import { processedStackInputSchema, StackInput } from '../lib/stack-input';
 import { createStacks } from '../lib/create-stacks';
+import {
+  BUNDLING_STACKS,
+  DISABLE_ASSET_STAGING_CONTEXT,
+} from 'aws-cdk-lib/cx-api';
+
+const appContext = {
+  [BUNDLING_STACKS]: [],
+  [DISABLE_ASSET_STAGING_CONTEXT]: true,
+};
 
 describe('GenerativeAiUseCases', () => {
   const stackInput: Partial<StackInput> = {
@@ -68,7 +77,9 @@ describe('GenerativeAiUseCases', () => {
   };
 
   test('matches the snapshot', () => {
-    const app = new cdk.App();
+    const app = new cdk.App({
+      context: appContext,
+    });
 
     const params = processedStackInputSchema.parse(stackInput);
 
@@ -115,7 +126,9 @@ describe('GenerativeAiUseCases', () => {
   });
 
   test('matches the snapshot (closed network mode)', () => {
-    const app = new cdk.App();
+    const app = new cdk.App({
+      context: appContext,
+    });
 
     const params = processedStackInputSchema.parse({
       ...stackInput,
@@ -166,7 +179,9 @@ describe('GenerativeAiUseCases', () => {
 
   test('tagKey functionality', () => {
     // Test with custom tagKey
-    const appWithCustomTag = new cdk.App();
+    const appWithCustomTag = new cdk.App({
+      context: appContext,
+    });
     const paramsWithCustomTag = processedStackInputSchema.parse({
       ...stackInput,
       tagKey: 'CustomTag',
@@ -179,7 +194,9 @@ describe('GenerativeAiUseCases', () => {
     );
 
     // Test without tagKey (should use default)
-    const appWithoutTagKey = new cdk.App();
+    const appWithoutTagKey = new cdk.App({
+      context: appContext,
+    });
     const paramsWithoutTagKey = processedStackInputSchema.parse({
       ...stackInput,
       tagKey: null,
