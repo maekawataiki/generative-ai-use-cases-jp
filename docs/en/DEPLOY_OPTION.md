@@ -681,41 +681,44 @@ const envs: Record<string, Partial<StackInput>> = {
 }
 ```
 
-### Enabling AgentCore Use Cases
+### Enabling AgentCore Use Case
 
 This is a use case for integrating with agents created in AgentCore. (Experimental: Breaking changes may be made without notice)
 
 Enabling `createGenericAgentCoreRuntime` will deploy the default AgentCore Runtime.
-By default, it is deployed to the `modelRegion`, but you can override this by specifying `agentCoreRegion`.
+By default, it is deployed to `modelRegion`, but you can override it by specifying `agentCoreRegion`.
 
-The default agents available in AgentCore can utilize MCP servers defined in [mcp.json](https://github.com/aws-samples/generative-ai-use-cases/blob/main/packages/cdk/lambda-python/generic-agent-core-runtime/mcp.json).
-This default agent is available in Agent Builder, and users can create any agent from MCPs that administrators have permitted.
+The default agents available in AgentCore can use MCP servers defined in [generic/mcp.json](packages/cdk/lambda-python/generic-agent-core-runtime/mcp-configs/generic/mcp.json).
 
 The MCP servers defined by default are AWS-related MCP servers and MCP servers related to current time.
-For details, please refer to the documentation [here](https://awslabs.github.io/mcp/).
-When adding MCP servers, please add them to the aforementioned `mcp.json`.
-However, MCP servers that start with methods other than `uvx` require development work such as rewriting the Dockerfile.
+For more details, please refer to [this documentation](https://awslabs.github.io/mcp/).
+To add MCP servers, add them to the aforementioned `generic/mcp.json`.
 
-With `agentCoreExternalRuntimes`, you can use externally created AgentCore Runtimes.
+You can use externally created AgentCore Runtimes with `agentCoreExternalRuntimes`.
 
-To enable AgentCore use cases, the `docker` command must be executable.
+When accessing services outside AWS from AgentCore Runtime, use AgentCore Gateway.
+By specifying the Gateway ARN in `agentCoreGatewayArns`, an IAM policy following the principle of least privilege will be configured.
+After configuration, use `mcp-proxy-for-aws` in the MCP settings to specify the endpoint.
+For details, refer to the [mcp-proxy-for-aws documentation](https://github.com/aws/mcp-proxy-for-aws).
+
+To enable the AgentCore use case, the `docker` command must be executable.
 
 > [!WARNING]
-> On Linux machines using x86_64 CPUs (Intel, AMD, etc.), run the following command before cdk deployment:
+> On Linux machines using x86_64 CPUs (Intel, AMD, etc.), execute the following command before deploying:
 >
 > ```
 > docker run --privileged --rm tonistiigi/binfmt --install arm64
 > ```
 >
-> If you do not run the above command, the following error will occur:  
-> During the deployment process, ARM-based container images used by AgentCore Runtime are built. When building ARM container images on x86_64 CPUs, errors occur due to CPU architecture differences.
+> If you do not execute the above command, the following error will occur.
+> During the deployment process, ARM-based container images used by AgentCore Runtime are built. When building ARM container images on x86_64 CPUs, errors occur due to differences in CPU architecture.
 >
 > ```
 > ERROR: failed to solve: process "/bin/sh -c apt-get update -y && apt-get install curl nodejs npm graphviz -y" did not complete successfully: exit code: 255
 > AgentCoreStack: fail: docker build --tag cdkasset-64ba68f71e3d29f5b84d8e8d062e841cb600c436bb68a540d6fce32fded36c08 --platform linux/arm64 . exited with error code 1: #0 building with "default" instance using docker driver
 > ```
 >
-> Running this command makes temporary configuration changes to the host Linux Kernel. It registers QEMU emulator custom handlers in Binary Format Miscellaneous (binfmt_misc), enabling ARM container image builds. The configuration returns to its original state after reboot, so the command must be re-executed before re-deployments.
+> Executing this command makes temporary configuration changes to the host's Linux Kernel. By registering QEMU custom handlers in Binary Format Miscellaneous (binfmt_misc), ARM container images can be built. The configuration reverts after a reboot, so re-execution is required when deploying again.
 
 **Edit [parameter.ts](/packages/cdk/parameter.ts)**
 
@@ -725,6 +728,9 @@ const envs: Record<string, Partial<StackInput>> = {
   dev: {
     createGenericAgentCoreRuntime: true,
     agentCoreRegion: 'us-west-2',
+    agentCoreGatewayArns: [
+      'arn:aws:bedrock-agentcore:us-west-2:<account>:gateway/<gateway-id>',
+    ],
     agentCoreExternalRuntimes: [
       {
         name: 'AgentCore1',
@@ -744,11 +750,59 @@ const envs: Record<string, Partial<StackInput>> = {
   "context": {
     "createGenericAgentCoreRuntime": true,
     "agentCoreRegion": "us-west-2",
+    "agentCoreGatewayArns": [
+      "arn:aws:bedrock-agentcore:us-west-2:<account>:gateway/<gateway-id>"
+    ],
     "agentCoreExternalRuntimes": [
       {
         "name": "AgentCore1",
         "arn": "arn:aws:bedrock-agentcore:us-west-2:<account>:runtime/agent-core1-xxxxxxxx"
       }
+    ]
+  }
+}
+```
+
+### Enabling AgentBuilder Use Case
+
+This is a use case where users can freely create Agents for each use case by configuring system prompts and arbitrary MCPs. (Experimental: Breaking changes may be made without notice)
+
+Similar to the AgentCore use case, administrators pre-register MCPs in [agent-builder/mcp.json](packages/cdk/lambda-python/generic-agent-core-runtime/mcp-configs/agent-builder/mcp.json). Users can selectively use their preferred MCPs from those registered by administrators.
+
+Enabling `agentBuilderEnabled` will deploy the AgentCore Runtime for Agent Builder.
+By default, it is deployed to `modelRegion`, but you can override it by specifying `agentCoreRegion`.
+
+When accessing services outside AWS, use AgentCore Gateway.
+By specifying the Gateway ARN in `agentCoreGatewayArns`, an IAM policy following the principle of least privilege will be configured.
+After configuration, use `mcp-proxy-for-aws` in the MCP settings to specify the endpoint.
+For details, refer to the [mcp-proxy-for-aws documentation](https://github.com/aws/mcp-proxy-for-aws).
+
+**Edit [parameter.ts](/packages/cdk/parameter.ts)**
+
+```typescript
+// parameter.ts
+const envs: Record<string, Partial<StackInput>> = {
+  dev: {
+    agentBuilderEnabled: true,
+    agentCoreRegion: 'us-west-2',
+    agentCoreGatewayArns: [
+      'arn:aws:bedrock-agentcore:us-west-2:<account>:gateway/<gateway-id>',
+    ],
+  },
+};
+```
+
+**Edit [packages/cdk/cdk.json](/packages/cdk/cdk.json)**
+
+```json
+// cdk.json
+
+{
+  "context": {
+    "agentBuilderEnabled": true,
+    "agentCoreRegion": "us-west-2",
+    "agentCoreGatewayArns": [
+      "arn:aws:bedrock-agentcore:us-west-2:<account>:gateway/<gateway-id>"
     ]
   }
 }

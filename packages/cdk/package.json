@@ -26,7 +26,7 @@
     "typescript": "~5.4.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-bedrock-agentcore-alpha": "2.221.0-alpha.0",
+    "@aws-cdk/aws-bedrock-agentcore-alpha": "2.227.0-alpha.0",
     "@aws-cdk/aws-lambda-python-alpha": "^2.220.0-alpha.0",
     "@aws-sdk/client-bedrock-agent": "^3.755.0",
     "@aws-sdk/client-bedrock-agent-runtime": "^3.755.0",

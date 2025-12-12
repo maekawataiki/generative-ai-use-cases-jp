@@ -19,7 +19,6 @@ import {
 } from '@aws-cdk/aws-bedrock-agentcore-alpha';
 import { BucketInfo } from 'generative-ai-use-cases';
 import * as path from 'path';
-import { loadMCPConfig } from '../utils/mcp-config-loader';
 import { SUPPORTED_CACHE_FIELDS } from '@generative-ai-use-cases/common';
 
 export interface AgentCoreRuntimeConfig {
@@ -37,6 +36,7 @@ export interface GenericAgentCoreProps {
   env: string;
   createGenericRuntime?: boolean;
   createAgentBuilderRuntime?: boolean;
+  gatewayArns?: string[];
 }
 
 interface RuntimeResources {
@@ -50,6 +50,7 @@ export class GenericAgentCore extends Construct {
   private readonly genericRuntimeConfig: AgentCoreRuntimeConfig;
   private readonly agentBuilderRuntimeConfig: AgentCoreRuntimeConfig;
   private readonly resources: RuntimeResources;
+  private readonly gatewayArns?: string[];
 
   constructor(scope: Construct, id: string, props: GenericAgentCoreProps) {
     super(scope, id);
@@ -58,7 +59,10 @@ export class GenericAgentCore extends Construct {
       env,
       createGenericRuntime = false,
       createAgentBuilderRuntime = false,
+      gatewayArns,
     } = props;
+
+    this.gatewayArns = gatewayArns;
 
     // Create bucket first
     this._fileBucket = this.createFileBucket();
@@ -85,13 +89,6 @@ export class GenericAgentCore extends Construct {
   }
 
   private loadConfigurations(env: string, bucketName: string) {
-    const genericMcpServers = loadMCPConfig(
-      path.join(__dirname, '../../assets/mcp-configs/generic.json')
-    );
-    const agentBuilderMcpServers = loadMCPConfig(
-      path.join(__dirname, '../../assets/mcp-configs/agent-builder.json')
-    );
-
     return {
       generic: {
         name: `GenUGenericRuntime${env}`,
@@ -102,7 +99,7 @@ export class GenericAgentCore extends Construct {
         serverProtocol: 'HTTP',
         environmentVariables: {
           FILE_BUCKET: bucketName,
-          MCP_SERVERS: JSON.stringify(genericMcpServers),
+          MCP_CONFIG_PATH: '/var/task/mcp-configs/generic/mcp.json',
           SUPPORTED_CACHE_FIELDS: JSON.stringify(SUPPORTED_CACHE_FIELDS),
         },
       },
@@ -116,7 +113,7 @@ export class GenericAgentCore extends Construct {
         serverProtocol: 'HTTP',
         environmentVariables: {
           FILE_BUCKET: bucketName,
-          MCP_SERVERS: JSON.stringify(agentBuilderMcpServers),
+          MCP_CONFIG_PATH: '/var/task/mcp-configs/agent-builder/mcp.json',
           SUPPORTED_CACHE_FIELDS: JSON.stringify(SUPPORTED_CACHE_FIELDS),
         },
       },
@@ -150,7 +147,7 @@ export class GenericAgentCore extends Construct {
       );
     }
 
-    this.configureRolePermissions(role);
+    this.configureRolePermissions(role, this.gatewayArns);
     return resources;
   }
 
@@ -187,7 +184,7 @@ export class GenericAgentCore extends Construct {
     });
   }
 
-  private configureRolePermissions(role: Role): void {
+  private configureRolePermissions(role: Role, gatewayArns?: string[]): void {
     // Bedrock permissions
     role.addToPolicy(
       new PolicyStatement({
@@ -236,6 +233,16 @@ export class GenericAgentCore extends Construct {
           'bedrock-agentcore:ListCodeInterpreterSessions',
         ],
         resources: ['*'],
+      })
+    );
+
+    // Gateway tools
+    role.addToPolicy(
+      new PolicyStatement({
+        sid: 'AllowGatewayInvocation',
+        effect: Effect.ALLOW,
+        actions: ['bedrock-agentcore:InvokeGateway'],
+        resources: gatewayArns && gatewayArns.length > 0 ? gatewayArns : ['*'],
       })
     );
 

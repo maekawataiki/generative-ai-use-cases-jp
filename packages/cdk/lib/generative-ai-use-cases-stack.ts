@@ -168,7 +168,10 @@ export class GenerativeAiUseCasesStack extends Stack {
 
     // Load MCP configuration for Web frontend
     const mcpServers = loadMCPConfig(
-      path.join(__dirname, '../assets/mcp-configs/agent-builder.json')
+      path.join(
+        __dirname,
+        '../lambda-python/generic-agent-core-runtime/mcp-configs/agent-builder/mcp.json'
+      )
     );
     const safeMCPConfig = extractSafeMCPConfig(mcpServers);
 

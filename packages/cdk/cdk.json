@@ -71,6 +71,7 @@
     "createGenericAgentCoreRuntime": false,
     "agentCoreRegion": null,
     "agentCoreExternalRuntimes": [],
+    "agentCoreGatewayArns": [],
     "allowedIpV4AddressRanges": null,
     "allowedIpV6AddressRanges": null,
     "allowedCountryCodes": null,

@@ -703,15 +703,18 @@ AgentCore で作成したエージェントと連携するユースケースで�
 `createGenericAgentCoreRuntime` を有効化するとデフォルトの AgentCore Runtime がデプロイされます。
 デフォルトでは `modelRegion` にデプロイされますが、`agentCoreRegion` を指定し上書きすることが可能です。
 
-AgentCore で使用できるデフォルトのエージェントは、[mcp.json](https://github.com/aws-samples/generative-ai-use-cases/blob/main/packages/cdk/lambda-python/generic-agent-core-runtime/mcp.json) で定義する MCP サーバーを利用することができます。
-このデフォルトのエージェントは Agent Builder で利用でき、ユーザーは管理者が許可した MCP から任意のエージェントを作成することができます。
+AgentCore で使用できるデフォルトのエージェントは、[generic/mcp.json](packages/cdk/lambda-python/generic-agent-core-runtime/mcp-configs/generic/mcp.json) で定義する MCP サーバーを利用することができます。
 
 デフォルトで定義されている MCP サーバーは、AWS に関連する MCP サーバー及び、現在時刻に関連する MCP サーバーです。
 詳細は[こちら](https://awslabs.github.io/mcp/)のドキュメントをご参照ください。
-MCP サーバーを追加する場合は上述の `mcp.json` に追記してください。
-ただし、`uvx` 以外で起動する MCP サーバーは Dockefile の書き換え等開発が必要です。
+MCP サーバーを追加する場合は上述の `generic/mcp.json` に追記してください。
 
 `agentCoreExternalRuntimes` で外部で作成した AgentCore Runtime を利用することが可能です。
+
+AgentCore Runtime から AWS 外部のサービスにアクセスする場合、AgentCore Gateway を使用します。
+`agentCoreGatewayArns` に Gateway の ARN を指定することで、最小権限の原則に従った IAM ポリシーが設定されます。
+設定後、MCP 設定で `mcp-proxy-for-aws` を使用してエンドポイントを指定します。
+詳細は [mcp-proxy-for-aws のドキュメント](https://github.com/aws/mcp-proxy-for-aws)を参照してください。
 
 AgentCore ユースケースを有効化するためには、`docker` コマンドが実行可能である必要があります。
 
@@ -740,6 +743,9 @@ const envs: Record<string, Partial<StackInput>> = {
   dev: {
     createGenericAgentCoreRuntime: true,
     agentCoreRegion: 'us-west-2',
+    agentCoreGatewayArns: [
+      'arn:aws:bedrock-agentcore:us-west-2:<account>:gateway/<gateway-id>',
+    ],
     agentCoreExternalRuntimes: [
       {
         name: 'AgentCore1',
@@ -759,11 +765,59 @@ const envs: Record<string, Partial<StackInput>> = {
   "context": {
     "createGenericAgentCoreRuntime": true,
     "agentCoreRegion": "us-west-2",
+    "agentCoreGatewayArns": [
+      "arn:aws:bedrock-agentcore:us-west-2:<account>:gateway/<gateway-id>"
+    ],
     "agentCoreExternalRuntimes": [
       {
         "name": "AgentCore1",
         "arn": "arn:aws:bedrock-agentcore:us-west-2:<account>:runtime/agent-core1-xxxxxxxx"
       }
+    ]
+  }
+}
+```
+
+### AgentBuilder ユースケースの有効化
+
+ユーザーがシステムプロンプトと任意の MCP を設定することでユースケースごとの Agent を自由に作成できるユースケースです。(Experimental: 予告なく破壊的変更を行うことがあります)
+
+AgentCore ユースケースと同様に [agent-builder/mcp.json](packages/cdk/lambda-python/generic-agent-core-runtime/mcp-configs/agent-builder/mcp.json) にて管理者側で MCP を事前に登録します。管理者が登録したものからユーザーが好きな MCP を選択式で利用できます。
+
+`agentBuilderEnabled` を有効化すると Agent Builder 向けの AgentCore Runtime がデプロイされます。
+デフォルトでは `modelRegion` にデプロイされますが、`agentCoreRegion` を指定し上書きすることが可能です。
+
+AWS 外部のサービスにアクセスする場合、AgentCore Gateway を使用します。
+`agentCoreGatewayArns` に Gateway の ARN を指定することで、最小権限の原則に従った IAM ポリシーが設定されます。
+設定後、MCP 設定で `mcp-proxy-for-aws` を使用してエンドポイントを指定します。
+詳細は [mcp-proxy-for-aws のドキュメント](https://github.com/aws/mcp-proxy-for-aws)を参照してください。
+
+**[parameter.ts](/packages/cdk/parameter.ts) を編集**
+
+```typescript
+// parameter.ts
+const envs: Record<string, Partial<StackInput>> = {
+  dev: {
+    agentBuilderEnabled: true,
+    agentCoreRegion: 'us-west-2',
+    agentCoreGatewayArns: [
+      'arn:aws:bedrock-agentcore:us-west-2:<account>:gateway/<gateway-id>',
+    ],
+  },
+};
+```
+
+**[packages/cdk/cdk.json](/packages/cdk/cdk.json) を編集**
+
+```json
+// cdk.json
+
+{
+  "context": {
+    "agentBuilderEnabled": true,
+    "agentCoreRegion": "us-west-2",
+    "agentCoreGatewayArns": [
+      "arn:aws:bedrock-agentcore:us-west-2:<account>:gateway/<gateway-id>"
     ]
   }
 }

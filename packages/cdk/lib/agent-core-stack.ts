@@ -22,6 +22,7 @@ export class AgentCoreStack extends Stack {
         env: params.env,
         createGenericRuntime: params.createGenericAgentCoreRuntime,
         createAgentBuilderRuntime: params.agentBuilderEnabled,
+        gatewayArns: params.agentCoreGatewayArns ?? undefined,
       });
 
       // Export runtime info for cross-region access via cdk-remote-stack (only if values exist)
