@@ -2,11 +2,14 @@ import { useEffect, useMemo, useState, memo } from 'react';
 import { BaseProps } from '../@types/common';
 import { default as ReactMarkdown } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import remarkBreaks from 'remark-breaks';
 import ButtonCopy from './ButtonCopy';
 import useRagFile from '../hooks/useRagFile';
 import { PiSpinnerGap } from 'react-icons/pi';
 import useFileApi from '../hooks/useFileApi';
+import 'katex/dist/katex.min.css';
 
 // Reduce bundle size by registering only the languages used in the project
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -181,7 +184,8 @@ const Markdown = memo(({ className, prefix, children }: Props) => {
     <ReactMarkdown
       className={`${className ?? ''} prose max-w-full`}
       children={children}
-      remarkPlugins={[remarkGfm, remarkBreaks]}
+      remarkPlugins={[remarkGfm, remarkBreaks, remarkMath]}
+      rehypePlugins={[rehypeKatex]}
       remarkRehypeOptions={{ clobberPrefix: prefix }}
       components={{
         a: LinkRenderer,
