@@ -290,6 +290,29 @@ const App: React.FC = () => {
     }
   }, [pathname, screen, notifyScreen]);
 
+  // Close inter-use-cases demo popup when navigating away from demo pages
+  const { setIsShow: setInterUseCasesShow, useCases } = useInterUseCases();
+  useEffect(() => {
+    // Only check if demo is currently shown and useCases are loaded
+    // Skip if useCases is empty to avoid closing during initialization
+    if (isShow && useCases.length > 0) {
+      const isInDemoFlow = useCases.some((useCase) => {
+        // Normalize paths by ensuring they start with /
+        const useCasePath = useCase.path.startsWith('/')
+          ? useCase.path
+          : `/${useCase.path}`;
+        // Check if current path matches any use case path
+        return (
+          pathname === useCasePath || pathname.startsWith(useCasePath + '/')
+        );
+      });
+      if (!isInDemoFlow) {
+        setInterUseCasesShow(false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, isShow]);
+
   return (
     <div
       className="screen:w-screen screen:h-screen overflow-x-hidden overflow-y-scroll"
