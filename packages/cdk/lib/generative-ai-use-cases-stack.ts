@@ -17,7 +17,6 @@ import { loadMCPConfig, extractSafeMCPConfig } from './utils/mcp-config-loader';
 import { CfnWebACLAssociation } from 'aws-cdk-lib/aws-wafv2';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager';
-import { Agent } from 'generative-ai-use-cases';
 import { UseCaseBuilder } from './construct/use-case-builder';
 import { AgentBuilder } from './construct/agent-builder';
 import { ProcessedStackInput } from './stack-input';
@@ -32,6 +31,7 @@ import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { AgentCoreStack } from './agent-core-stack';
 import * as path from 'path';
 import { RemoteOutputs } from 'cdk-remote-stack';
+import { REMOTE_OUTPUT_KEYS } from './remote-output-keys';
 
 export interface GenerativeAiUseCasesStackProps extends StackProps {
   readonly params: ProcessedStackInput;
@@ -39,7 +39,7 @@ export interface GenerativeAiUseCasesStackProps extends StackProps {
   readonly knowledgeBaseId?: string;
   readonly knowledgeBaseDataSourceBucketName?: string;
   // Agent
-  readonly agents?: Agent[];
+  readonly agentStack?: Stack;
   // Agent Core
   readonly createGenericAgentCoreRuntime?: boolean;
   readonly agentBuilderEnabled?: boolean;
@@ -76,6 +76,44 @@ export class GenerativeAiUseCasesStack extends Stack {
     process.env.overrideWarningsEnabled = 'false';
 
     const params = props.params;
+
+    // Get values from other stacks using RemoteOutputs
+    let agentsJson: string | undefined;
+
+    // Agent RemoteOutputs
+    if (params.agentEnabled && props.agentStack) {
+      const agentRemoteOutputs = new RemoteOutputs(this, 'AgentRemoteOutputs', {
+        stack: props.agentStack,
+        alwaysUpdate: true,
+      });
+      agentsJson = agentRemoteOutputs.get(REMOTE_OUTPUT_KEYS.AGENTS);
+    }
+
+    let genericRuntimeArn: string | undefined;
+    let genericRuntimeName: string | undefined;
+    let agentBuilderRuntimeArn: string | undefined;
+    let agentBuilderRuntimeName: string | undefined;
+
+    // Get runtime info from remote AgentCore stack using cdk-remote-stack
+    if (params.createGenericAgentCoreRuntime || params.agentBuilderEnabled) {
+      const remoteOutputs = new RemoteOutputs(this, 'AgentCoreRemoteOutputs', {
+        stack: props.agentCoreStack!,
+      });
+
+      if (params.createGenericAgentCoreRuntime) {
+        genericRuntimeArn = remoteOutputs.get('GenericAgentCoreRuntimeArn');
+        genericRuntimeName = remoteOutputs.get('GenericAgentCoreRuntimeName');
+      }
+
+      if (params.agentBuilderEnabled) {
+        agentBuilderRuntimeArn = remoteOutputs.get(
+          'AgentBuilderAgentCoreRuntimeArn'
+        );
+        agentBuilderRuntimeName = remoteOutputs.get(
+          'AgentBuilderAgentCoreRuntimeName'
+        );
+      }
+    }
 
     // Common security group for saving ENI in Closed network mode
     let securityGroups: ISecurityGroup[] | undefined = undefined;
@@ -124,7 +162,7 @@ export class GenerativeAiUseCasesStack extends Stack {
       table: database.table,
       statsTable: database.statsTable,
       knowledgeBaseId: params.ragKnowledgeBaseId || props.knowledgeBaseId,
-      agents: props.agents,
+      agents: agentsJson,
       guardrailIdentify: props.guardrailIdentifier,
       guardrailVersion: props.guardrailVersion,
       vpc: props.vpc,
@@ -188,34 +226,6 @@ export class GenerativeAiUseCasesStack extends Stack {
       mcpEndpoint = mcpApi.endpoint;
     }
 
-    // AgentCore Runtime (External runtimes and permissions only)
-    let genericRuntimeArn: string | undefined;
-    let genericRuntimeName: string | undefined;
-    let agentBuilderRuntimeArn: string | undefined;
-    let agentBuilderRuntimeName: string | undefined;
-    let remoteOutputs: RemoteOutputs | undefined;
-
-    // Get runtime info from remote AgentCore stack using cdk-remote-stack
-    if (params.createGenericAgentCoreRuntime || params.agentBuilderEnabled) {
-      remoteOutputs = new RemoteOutputs(this, 'AgentCoreRemoteOutputs', {
-        stack: props.agentCoreStack!,
-      });
-
-      if (params.createGenericAgentCoreRuntime) {
-        genericRuntimeArn = remoteOutputs.get('GenericAgentCoreRuntimeArn');
-        genericRuntimeName = remoteOutputs.get('GenericAgentCoreRuntimeName');
-      }
-
-      if (params.agentBuilderEnabled) {
-        agentBuilderRuntimeArn = remoteOutputs.get(
-          'AgentBuilderAgentCoreRuntimeArn'
-        );
-        agentBuilderRuntimeName = remoteOutputs.get(
-          'AgentBuilderAgentCoreRuntimeName'
-        );
-      }
-    }
-
     // Create AgentCore construct for external runtimes and permissions
     if (
       params.agentCoreExternalRuntimes.length > 0 ||
@@ -256,7 +266,8 @@ export class GenerativeAiUseCasesStack extends Stack {
       imageGenerationModelIds: api.imageGenerationModelIds,
       videoGenerationModelIds: api.videoGenerationModelIds,
       endpointNames: api.endpointNames,
-      agents: api.agents,
+      builtinAgentsJson: agentsJson || '[]',
+      customAgentsJson: JSON.stringify(params.agents),
       inlineAgents: params.inlineAgents,
       useCaseBuilderEnabled: params.useCaseBuilderEnabled,
       speechToSpeechNamespace: speechToSpeech.namespace,

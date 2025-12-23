@@ -1,4 +1,4 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Stack, StackProps, CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import {
   CfnApplicationInferenceProfile,
@@ -63,5 +63,12 @@ export class ApplicationInferenceProfileStack extends Stack {
     createInferenceProfiles(params.imageGenerationModelIds);
     createInferenceProfiles(params.videoGenerationModelIds);
     createInferenceProfiles(params.speechToSpeechModelIds);
+
+    // Export all inference profile ARNs as a single JSON output
+    if (Object.keys(this.inferenceProfileArns).length > 0) {
+      new CfnOutput(this, 'InferenceProfileArns', {
+        value: JSON.stringify(this.inferenceProfileArns),
+      });
+    }
   }
 }

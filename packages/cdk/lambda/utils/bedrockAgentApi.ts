@@ -30,8 +30,35 @@ import {
 const MODEL_REGION = process.env.MODEL_REGION as string;
 const s3Client = new S3Client({});
 
-// Agent information
-const agentMap: AgentMap = JSON.parse(process.env.AGENT_MAP || '{}');
+// Agent information - create AgentMap from both agent sources at runtime
+const createAgentMap = (): AgentMap => {
+  try {
+    const builtinAgentsJson = process.env.BUILTIN_AGENTS_JSON || '[]';
+    const customAgentsJson = process.env.CUSTOM_AGENTS_JSON || '[]';
+
+    const builtinAgents = JSON.parse(builtinAgentsJson);
+    const customAgents = JSON.parse(customAgentsJson);
+    const allAgents = [...builtinAgents, ...customAgents];
+
+    const agentMap: AgentMap = {};
+
+    for (const agent of allAgents) {
+      if (agent.displayName && agent.agentId) {
+        agentMap[agent.displayName] = {
+          agentId: agent.agentId,
+          aliasId: agent.aliasId,
+        };
+      }
+    }
+
+    return agentMap;
+  } catch (error) {
+    console.warn('Failed to parse agents JSON:', error);
+    return {};
+  }
+};
+
+const agentMap: AgentMap = createAgentMap();
 type AgentConfig = {
   codeInterpreterEnabled: boolean;
 };

@@ -3587,47 +3587,41 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 2`] = `
 exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 3`] = `
 {
   "Outputs": {
-    "ExportsOutputFnGetAttAgentCodeInterpreterAgent98889BFEAgentIdFAC9D557": {
-      "Export": {
-        "Name": "WebSearchAgentStack:ExportsOutputFnGetAttAgentCodeInterpreterAgent98889BFEAgentIdFAC9D557",
-      },
+    "Agents": {
       "Value": {
-        "Fn::GetAtt": [
-          "AgentCodeInterpreterAgent98889BFE",
-          "AgentId",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttAgentCodeInterpreterAgentAliasB6F54C31AgentAliasIdE516C748": {
-      "Export": {
-        "Name": "WebSearchAgentStack:ExportsOutputFnGetAttAgentCodeInterpreterAgentAliasB6F54C31AgentAliasIdE516C748",
-      },
-      "Value": {
-        "Fn::GetAtt": [
-          "AgentCodeInterpreterAgentAliasB6F54C31",
-          "AgentAliasId",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttAgentSearchAgent3AF6EC6FAgentIdF3D3B4F6": {
-      "Export": {
-        "Name": "WebSearchAgentStack:ExportsOutputFnGetAttAgentSearchAgent3AF6EC6FAgentIdF3D3B4F6",
-      },
-      "Value": {
-        "Fn::GetAtt": [
-          "AgentSearchAgent3AF6EC6F",
-          "AgentId",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttAgentSearchAgentAliasD59C2A47AgentAliasId0289A97F": {
-      "Export": {
-        "Name": "WebSearchAgentStack:ExportsOutputFnGetAttAgentSearchAgentAliasD59C2A47AgentAliasId0289A97F",
-      },
-      "Value": {
-        "Fn::GetAtt": [
-          "AgentSearchAgentAliasD59C2A47",
-          "AgentAliasId",
+        "Fn::Join": [
+          "",
+          [
+            "[{"displayName":"SearchEngine","agentId":"",
+            {
+              "Fn::GetAtt": [
+                "AgentSearchAgent3AF6EC6F",
+                "AgentId",
+              ],
+            },
+            "","aliasId":"",
+            {
+              "Fn::GetAtt": [
+                "AgentSearchAgentAliasD59C2A47",
+                "AgentAliasId",
+              ],
+            },
+            "","description":"Agent with Web Search Functionality"},{"displayName":"CodeInterpreter","agentId":"",
+            {
+              "Fn::GetAtt": [
+                "AgentCodeInterpreterAgent98889BFE",
+                "AgentId",
+              ],
+            },
+            "","aliasId":"",
+            {
+              "Fn::GetAtt": [
+                "AgentCodeInterpreterAgentAliasB6F54C31",
+                "AgentAliasId",
+              ],
+            },
+            "","description":"Agent with Code Interpreter Functionality"}]",
+          ],
         ],
       },
     },
@@ -4403,9 +4397,6 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 4`] = `
 {
   "Outputs": {
     "AgentBuilderAgentCoreRuntimeArn": {
-      "Export": {
-        "Name": "AgentCoreStack-AgentBuilderAgentCoreRuntimeArn",
-      },
       "Value": {
         "Fn::GetAtt": [
           "GenericAgentCoreAgentBuilderAgentCoreRuntimeFEFD60E0",
@@ -4414,9 +4405,6 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 4`] = `
       },
     },
     "AgentBuilderAgentCoreRuntimeName": {
-      "Export": {
-        "Name": "AgentCoreStack-AgentBuilderAgentCoreRuntimeName",
-      },
       "Value": "GenUAgentBuilderRuntime",
     },
     "ExportsOutputRefGenericAgentCoreAgentCoreFileBucket0430DA423298A79F": {
@@ -4428,17 +4416,11 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 4`] = `
       },
     },
     "FileBucketName": {
-      "Export": {
-        "Name": "AgentCoreStack-FileBucketName",
-      },
       "Value": {
         "Ref": "GenericAgentCoreAgentCoreFileBucket0430DA42",
       },
     },
     "GenericAgentCoreRuntimeArn": {
-      "Export": {
-        "Name": "AgentCoreStack-GenericAgentCoreRuntimeArn",
-      },
       "Value": {
         "Fn::GetAtt": [
           "GenericAgentCoreGenericAgentCoreRuntime041F933D",
@@ -4447,9 +4429,6 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 4`] = `
       },
     },
     "GenericAgentCoreRuntimeName": {
-      "Export": {
-        "Name": "AgentCoreStack-GenericAgentCoreRuntimeName",
-      },
       "Value": "GenUGenericRuntime",
     },
   },
@@ -5192,7 +5171,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
       "Value": "true",
     },
     "Agents": {
-      "Value": "W3siZGlzcGxheU5hbWUiOiJTZWFyY2hFbmdpbmUiLCJkZXNjcmlwdGlvbiI6IkFnZW50IHdpdGggV2ViIFNlYXJjaCBGdW5jdGlvbmFsaXR5In0seyJkaXNwbGF5TmFtZSI6IkNvZGVJbnRlcnByZXRlciIsImRlc2NyaXB0aW9uIjoiQWdlbnQgd2l0aCBDb2RlIEludGVycHJldGVyIEZ1bmN0aW9uYWxpdHkifV0=",
+      "Value": "W10=",
     },
     "ApiEndpoint": {
       "Value": {
@@ -5247,18 +5226,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
       },
     },
     "ImageGenerateModelIds": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-            {
-              "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-            },
-            ""}]",
-          ],
-        ],
-      },
+      "Value": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
     },
     "InlineAgents": {
       "Value": "false",
@@ -5281,18 +5249,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
       "Value": "{"time":{"metadata":{"category":"Utility","description":"Provides current time and date functionality"}},"aws-knowledge-mcp-server":{"metadata":{"category":"AWS","description":"AWS Knowledge Base MCP server for enterprise knowledge access"}},"awslabs.aws-documentation-mcp-server":{"metadata":{"category":"AWS","description":"Access AWS documentation and guides"}},"awslabs.cdk-mcp-server":{"metadata":{"category":"AWS","description":"AWS CDK code generation and assistance"}},"awslabs.aws-diagram-mcp-server":{"metadata":{"category":"AWS","description":"Generate AWS architecture diagrams"}},"awslabs.nova-canvas-mcp-server":{"metadata":{"category":"AI/ML","description":"Amazon Nova Canvas image generation"}},"tavily-search":{"metadata":{"category":"Search","description":"Web search and research capabilities powered by Tavily"}},"tavily-gateway":{"metadata":{"category":"Search","description":"Web search and research capabilities powered by Tavily"}}}",
     },
     "ModelIds": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-            {
-              "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-            },
-            ""}]",
-          ],
-        ],
-      },
+      "Value": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
     },
     "ModelRegion": {
       "Value": "us-east-1",
@@ -5352,18 +5309,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
       },
     },
     "SpeechToSpeechModelIds": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1","inferenceProfileArn":"",
-            {
-              "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovasonicv10InferenceProfileArnDDA114DD",
-            },
-            ""}]",
-          ],
-        ],
-      },
+      "Value": "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1"}]",
     },
     "SpeechToSpeechNamespace": {
       "Value": "speech-to-speech",
@@ -5382,18 +5328,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
       },
     },
     "VideoGenerateModelIds": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-            {
-              "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-            },
-            ""}]",
-          ],
-        ],
-      },
+      "Value": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
     },
     "WebUrl": {
       "Value": "CLOSED_NETWORK_MODE",
@@ -13264,30 +13199,8 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
               "Ref": "APIFileBucket8FB29855",
             },
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
@@ -13304,18 +13217,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
                 ],
               ],
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -14727,45 +14629,12 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
         },
         "Environment": {
           "Variables": {
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -15356,43 +15225,10 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
         "Environment": {
           "Variables": {
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -15517,30 +15353,8 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
               "Ref": "APIFileBucket8FB29855",
             },
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
@@ -15558,18 +15372,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
                 ],
               ],
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -17112,30 +16915,8 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
               ],
             },
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
@@ -17152,18 +16933,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
                 ],
               ],
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -17475,43 +17245,10 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
               "Fn::ImportValue": "GuardrailStack:ExportsOutputFnGetAttGuardrailguardrail03A76CF4GuardrailIdDBA991AF",
             },
             "GUARDRAIL_VERSION": "DRAFT",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -17632,65 +17369,26 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
         },
         "Environment": {
           "Variables": {
-            "AGENT_MAP": {
-              "Fn::Join": [
-                "",
-                [
-                  "{"SearchEngine":{"agentId":"",
-                  {
-                    "Fn::ImportValue": "WebSearchAgentStack:ExportsOutputFnGetAttAgentSearchAgent3AF6EC6FAgentIdF3D3B4F6",
-                  },
-                  "","aliasId":"",
-                  {
-                    "Fn::ImportValue": "WebSearchAgentStack:ExportsOutputFnGetAttAgentSearchAgentAliasD59C2A47AgentAliasId0289A97F",
-                  },
-                  ""},"CodeInterpreter":{"agentId":"",
-                  {
-                    "Fn::ImportValue": "WebSearchAgentStack:ExportsOutputFnGetAttAgentCodeInterpreterAgent98889BFEAgentIdFAC9D557",
-                  },
-                  "","aliasId":"",
-                  {
-                    "Fn::ImportValue": "WebSearchAgentStack:ExportsOutputFnGetAttAgentCodeInterpreterAgentAliasB6F54C31AgentAliasIdE516C748",
-                  },
-                  ""}}",
-                ],
-              ],
-            },
             "BUCKET_NAME": {
               "Ref": "APIFileBucket8FB29855",
             },
+            "BUILTIN_AGENTS_JSON": {
+              "Fn::GetAtt": [
+                "AgentRemoteOutputs90CFA880",
+                "Agents",
+              ],
+            },
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
+            "CUSTOM_AGENTS_JSON": "[]",
             "GUARDRAIL_IDENTIFIER": {
               "Fn::ImportValue": "GuardrailStack:ExportsOutputFnGetAttGuardrailguardrail03A76CF4GuardrailIdDBA991AF",
             },
             "GUARDRAIL_VERSION": "DRAFT",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
             "KNOWLEDGE_BASE_ID": {
               "Fn::ImportValue": "RagKnowledgeBaseStack:ExportsOutputRefKnowledgeBaseD054384B",
             },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "QUERY_DECOMPOSITION_ENABLED": "false",
             "RERANKING_MODEL_ID": "",
@@ -17720,18 +17418,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
                 ],
               ],
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -17895,46 +17582,13 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
               "Fn::ImportValue": "GuardrailStack:ExportsOutputFnGetAttGuardrailguardrail03A76CF4GuardrailIdDBA991AF",
             },
             "GUARDRAIL_VERSION": "DRAFT",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -19041,6 +18695,252 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
       "Type": "AWS::IAM::Policy",
       "UpdateReplacePolicy": "Delete",
     },
+    "AgentRemoteOutputs90CFA880": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "AgentRemoteOutputsMyProviderframeworkonEventF9C28988",
+            "Arn",
+          ],
+        },
+        "randomString": "RANDOM-STRING-REPLACED",
+        "regionName": "us-east-1",
+        "stackName": "WebSearchAgentStack",
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyHandler04E7AFB1": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "AgentRemoteOutputsMyHandlerServiceRoleDefaultPolicy9D946EF9",
+        "AgentRemoteOutputsMyHandlerServiceRole44123FB4",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456890123-us-east-1",
+          "S3Key": "HASH-REPLACED.zip",
+        },
+        "Handler": "remote-outputs.on_event",
+        "Role": {
+          "Fn::GetAtt": [
+            "AgentRemoteOutputsMyHandlerServiceRole44123FB4",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.9",
+      },
+      "Type": "AWS::Lambda::Function",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyHandlerServiceRole44123FB4": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyHandlerServiceRoleDefaultPolicy9D946EF9": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "cloudformation:DescribeStacks",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AgentRemoteOutputsMyHandlerServiceRoleDefaultPolicy9D946EF9",
+        "Roles": [
+          {
+            "Ref": "AgentRemoteOutputsMyHandlerServiceRole44123FB4",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyProviderframeworkonEventF9C28988": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleDefaultPolicy5E7D4C8A",
+        "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleFE28477D",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456890123-us-east-1",
+          "S3Key": "HASH-REPLACED.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (GenerativeAiUseCasesStack/AgentRemoteOutputs/MyProvider)",
+        "Environment": {
+          "Variables": {
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "AgentRemoteOutputsMyHandler04E7AFB1",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "LoggingConfig": {
+          "ApplicationLogLevel": "FATAL",
+          "LogFormat": "JSON",
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleFE28477D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs22.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyProviderframeworkonEventLogRetention05F81B10": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "AgentRemoteOutputsMyProviderframeworkonEventF9C28988",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 1,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleDefaultPolicy5E7D4C8A": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "AgentRemoteOutputsMyHandler04E7AFB1",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "AgentRemoteOutputsMyHandler04E7AFB1",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "AgentRemoteOutputsMyHandler04E7AFB1",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleDefaultPolicy5E7D4C8A",
+        "Roles": [
+          {
+            "Ref": "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleFE28477D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleFE28477D": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Delete",
+    },
     "ApiBuildWeb746ABF13": {
       "DeletionPolicy": "Delete",
       "Properties": {
@@ -19060,7 +18960,6 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
         "destinationBucketName": "cdk-hnb659fds-assets-123456890123-us-east-1",
         "environment": {
           "NODE_OPTIONS": "--max-old-space-size=4096",
-          "VITE_APP_AGENTS": "[{"displayName":"SearchEngine","description":"Agent with Web Search Functionality"},{"displayName":"CodeInterpreter","description":"Agent with Code Interpreter Functionality"}]",
           "VITE_APP_AGENT_CORE_AGENT_BUILDER_ENABLED": "true",
           "VITE_APP_AGENT_CORE_AGENT_BUILDER_RUNTIME": {
             "Fn::Join": [
@@ -19131,6 +19030,12 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
           },
           "VITE_APP_BRANDING_LOGO_PATH": "",
           "VITE_APP_BRANDING_TITLE": "",
+          "VITE_APP_BUILTIN_AGENTS_JSON": {
+            "Fn::GetAtt": [
+              "AgentRemoteOutputs90CFA880",
+              "Agents",
+            ],
+          },
           "VITE_APP_COGNITO_IDENTITY_POOL_PROXY_ENDPOINT": {
             "Fn::Join": [
               "",
@@ -19171,6 +19076,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
               ],
             ],
           },
+          "VITE_APP_CUSTOM_AGENTS_JSON": "[]",
           "VITE_APP_ENDPOINT_NAMES": "[]",
           "VITE_APP_FLOWS": "[]",
           "VITE_APP_FLOW_STREAM_FUNCTION_ARN": {
@@ -19183,34 +19089,12 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
           "VITE_APP_IDENTITY_POOL_ID": {
             "Ref": "AuthIdentityPool659E7F64",
           },
-          "VITE_APP_IMAGE_MODEL_IDS": {
-            "Fn::Join": [
-              "",
-              [
-                "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                {
-                  "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                },
-                ""}]",
-              ],
-            ],
-          },
+          "VITE_APP_IMAGE_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
           "VITE_APP_INLINE_AGENTS": "false",
           "VITE_APP_MCP_ENABLED": "false",
           "VITE_APP_MCP_ENDPOINT": "",
           "VITE_APP_MCP_SERVERS_CONFIG": "{"time":{"metadata":{"category":"Utility","description":"Provides current time and date functionality"}},"aws-knowledge-mcp-server":{"metadata":{"category":"AWS","description":"AWS Knowledge Base MCP server for enterprise knowledge access"}},"awslabs.aws-documentation-mcp-server":{"metadata":{"category":"AWS","description":"Access AWS documentation and guides"}},"awslabs.cdk-mcp-server":{"metadata":{"category":"AWS","description":"AWS CDK code generation and assistance"}},"awslabs.aws-diagram-mcp-server":{"metadata":{"category":"AWS","description":"Generate AWS architecture diagrams"}},"awslabs.nova-canvas-mcp-server":{"metadata":{"category":"AI/ML","description":"Amazon Nova Canvas image generation"}},"tavily-search":{"metadata":{"category":"Search","description":"Web search and research capabilities powered by Tavily"}},"tavily-gateway":{"metadata":{"category":"Search","description":"Web search and research capabilities powered by Tavily"}}}",
-          "VITE_APP_MODEL_IDS": {
-            "Fn::Join": [
-              "",
-              [
-                "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                {
-                  "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                },
-                ""}]",
-              ],
-            ],
-          },
+          "VITE_APP_MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
           "VITE_APP_MODEL_REGION": "us-east-1",
           "VITE_APP_OPTIMIZE_PROMPT_FUNCTION_ARN": {
             "Fn::GetAtt": [
@@ -19246,18 +19130,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
               ],
             ],
           },
-          "VITE_APP_SPEECH_TO_SPEECH_MODEL_IDS": {
-            "Fn::Join": [
-              "",
-              [
-                "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                {
-                  "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovasonicv10InferenceProfileArnDDA114DD",
-                },
-                ""}]",
-              ],
-            ],
-          },
+          "VITE_APP_SPEECH_TO_SPEECH_MODEL_IDS": "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1"}]",
           "VITE_APP_SPEECH_TO_SPEECH_NAMESPACE": "speech-to-speech",
           "VITE_APP_USER_POOL_CLIENT_ID": {
             "Ref": "AuthUserPoolclientA74673A9",
@@ -19266,18 +19139,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
             "Ref": "AuthUserPool8115E87F",
           },
           "VITE_APP_USE_CASE_BUILDER_ENABLED": "true",
-          "VITE_APP_VIDEO_MODEL_IDS": {
-            "Fn::Join": [
-              "",
-              [
-                "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                {
-                  "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                },
-                ""}]",
-              ],
-            ],
-          },
+          "VITE_APP_VIDEO_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
         },
         "outputEnvFile": false,
         "outputSourceDirectory": "../packages/web/dist",
@@ -21700,18 +21562,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
         },
         "Environment": {
           "Variables": {
-            "SPEECH_TO_SPEECH_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovasonicv10InferenceProfileArnDDA114DD",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "SPEECH_TO_SPEECH_MODEL_IDS": "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1"}]",
             "SPEECH_TO_SPEECH_TASK_FUNCTION_ARN": {
               "Fn::GetAtt": [
                 "SpeechToSpeechTaskC1149BF3",
@@ -21870,18 +21721,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
               ],
             },
             "NAMESPACE": "speech-to-speech",
-            "SPEECH_TO_SPEECH_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovasonicv10InferenceProfileArnDDA114DD",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "SPEECH_TO_SPEECH_MODEL_IDS": "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -25703,47 +25543,41 @@ exports[`GenerativeAiUseCases matches the snapshot 2`] = `
 exports[`GenerativeAiUseCases matches the snapshot 3`] = `
 {
   "Outputs": {
-    "ExportsOutputFnGetAttAgentCodeInterpreterAgent98889BFEAgentIdFAC9D557": {
-      "Export": {
-        "Name": "WebSearchAgentStack:ExportsOutputFnGetAttAgentCodeInterpreterAgent98889BFEAgentIdFAC9D557",
-      },
+    "Agents": {
       "Value": {
-        "Fn::GetAtt": [
-          "AgentCodeInterpreterAgent98889BFE",
-          "AgentId",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttAgentCodeInterpreterAgentAliasB6F54C31AgentAliasIdE516C748": {
-      "Export": {
-        "Name": "WebSearchAgentStack:ExportsOutputFnGetAttAgentCodeInterpreterAgentAliasB6F54C31AgentAliasIdE516C748",
-      },
-      "Value": {
-        "Fn::GetAtt": [
-          "AgentCodeInterpreterAgentAliasB6F54C31",
-          "AgentAliasId",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttAgentSearchAgent3AF6EC6FAgentIdF3D3B4F6": {
-      "Export": {
-        "Name": "WebSearchAgentStack:ExportsOutputFnGetAttAgentSearchAgent3AF6EC6FAgentIdF3D3B4F6",
-      },
-      "Value": {
-        "Fn::GetAtt": [
-          "AgentSearchAgent3AF6EC6F",
-          "AgentId",
-        ],
-      },
-    },
-    "ExportsOutputFnGetAttAgentSearchAgentAliasD59C2A47AgentAliasId0289A97F": {
-      "Export": {
-        "Name": "WebSearchAgentStack:ExportsOutputFnGetAttAgentSearchAgentAliasD59C2A47AgentAliasId0289A97F",
-      },
-      "Value": {
-        "Fn::GetAtt": [
-          "AgentSearchAgentAliasD59C2A47",
-          "AgentAliasId",
+        "Fn::Join": [
+          "",
+          [
+            "[{"displayName":"SearchEngine","agentId":"",
+            {
+              "Fn::GetAtt": [
+                "AgentSearchAgent3AF6EC6F",
+                "AgentId",
+              ],
+            },
+            "","aliasId":"",
+            {
+              "Fn::GetAtt": [
+                "AgentSearchAgentAliasD59C2A47",
+                "AgentAliasId",
+              ],
+            },
+            "","description":"Agent with Web Search Functionality"},{"displayName":"CodeInterpreter","agentId":"",
+            {
+              "Fn::GetAtt": [
+                "AgentCodeInterpreterAgent98889BFE",
+                "AgentId",
+              ],
+            },
+            "","aliasId":"",
+            {
+              "Fn::GetAtt": [
+                "AgentCodeInterpreterAgentAliasB6F54C31",
+                "AgentAliasId",
+              ],
+            },
+            "","description":"Agent with Code Interpreter Functionality"}]",
+          ],
         ],
       },
     },
@@ -26473,9 +26307,6 @@ exports[`GenerativeAiUseCases matches the snapshot 4`] = `
 {
   "Outputs": {
     "AgentBuilderAgentCoreRuntimeArn": {
-      "Export": {
-        "Name": "AgentCoreStack-AgentBuilderAgentCoreRuntimeArn",
-      },
       "Value": {
         "Fn::GetAtt": [
           "GenericAgentCoreAgentBuilderAgentCoreRuntimeFEFD60E0",
@@ -26484,9 +26315,6 @@ exports[`GenerativeAiUseCases matches the snapshot 4`] = `
       },
     },
     "AgentBuilderAgentCoreRuntimeName": {
-      "Export": {
-        "Name": "AgentCoreStack-AgentBuilderAgentCoreRuntimeName",
-      },
       "Value": "GenUAgentBuilderRuntime",
     },
     "ExportsOutputRefGenericAgentCoreAgentCoreFileBucket0430DA423298A79F": {
@@ -26498,17 +26326,11 @@ exports[`GenerativeAiUseCases matches the snapshot 4`] = `
       },
     },
     "FileBucketName": {
-      "Export": {
-        "Name": "AgentCoreStack-FileBucketName",
-      },
       "Value": {
         "Ref": "GenericAgentCoreAgentCoreFileBucket0430DA42",
       },
     },
     "GenericAgentCoreRuntimeArn": {
-      "Export": {
-        "Name": "AgentCoreStack-GenericAgentCoreRuntimeArn",
-      },
       "Value": {
         "Fn::GetAtt": [
           "GenericAgentCoreGenericAgentCoreRuntime041F933D",
@@ -26517,9 +26339,6 @@ exports[`GenerativeAiUseCases matches the snapshot 4`] = `
       },
     },
     "GenericAgentCoreRuntimeName": {
-      "Export": {
-        "Name": "AgentCoreStack-GenericAgentCoreRuntimeName",
-      },
       "Value": "GenUGenericRuntime",
     },
   },
@@ -27262,7 +27081,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
       "Value": "true",
     },
     "Agents": {
-      "Value": "W3siZGlzcGxheU5hbWUiOiJTZWFyY2hFbmdpbmUiLCJkZXNjcmlwdGlvbiI6IkFnZW50IHdpdGggV2ViIFNlYXJjaCBGdW5jdGlvbmFsaXR5In0seyJkaXNwbGF5TmFtZSI6IkNvZGVJbnRlcnByZXRlciIsImRlc2NyaXB0aW9uIjoiQWdlbnQgd2l0aCBDb2RlIEludGVycHJldGVyIEZ1bmN0aW9uYWxpdHkifV0=",
+      "Value": "W10=",
     },
     "ApiEndpoint": {
       "Value": {
@@ -27317,18 +27136,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
       },
     },
     "ImageGenerateModelIds": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-            {
-              "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-            },
-            ""}]",
-          ],
-        ],
-      },
+      "Value": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
     },
     "InlineAgents": {
       "Value": "false",
@@ -27351,18 +27159,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
       "Value": "{"time":{"metadata":{"category":"Utility","description":"Provides current time and date functionality"}},"aws-knowledge-mcp-server":{"metadata":{"category":"AWS","description":"AWS Knowledge Base MCP server for enterprise knowledge access"}},"awslabs.aws-documentation-mcp-server":{"metadata":{"category":"AWS","description":"Access AWS documentation and guides"}},"awslabs.cdk-mcp-server":{"metadata":{"category":"AWS","description":"AWS CDK code generation and assistance"}},"awslabs.aws-diagram-mcp-server":{"metadata":{"category":"AWS","description":"Generate AWS architecture diagrams"}},"awslabs.nova-canvas-mcp-server":{"metadata":{"category":"AI/ML","description":"Amazon Nova Canvas image generation"}},"tavily-search":{"metadata":{"category":"Search","description":"Web search and research capabilities powered by Tavily"}},"tavily-gateway":{"metadata":{"category":"Search","description":"Web search and research capabilities powered by Tavily"}}}",
     },
     "ModelIds": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-            {
-              "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-            },
-            ""}]",
-          ],
-        ],
-      },
+      "Value": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
     },
     "ModelRegion": {
       "Value": "us-east-1",
@@ -27422,18 +27219,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
       },
     },
     "SpeechToSpeechModelIds": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1","inferenceProfileArn":"",
-            {
-              "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovasonicv10InferenceProfileArnDDA114DD",
-            },
-            ""}]",
-          ],
-        ],
-      },
+      "Value": "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1"}]",
     },
     "SpeechToSpeechNamespace": {
       "Value": "speech-to-speech",
@@ -27452,18 +27238,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
       },
     },
     "VideoGenerateModelIds": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-            {
-              "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-            },
-            ""}]",
-          ],
-        ],
-      },
+      "Value": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
     },
     "WebUrl": {
       "Value": {
@@ -35317,30 +35092,8 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
               "Ref": "APIFileBucket8FB29855",
             },
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
@@ -35357,18 +35110,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
                 ],
               ],
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -36510,45 +36252,12 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
         },
         "Environment": {
           "Variables": {
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -37049,43 +36758,10 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
         "Environment": {
           "Variables": {
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -37180,30 +36856,8 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
               "Ref": "APIFileBucket8FB29855",
             },
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
@@ -37221,18 +36875,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
                 ],
               ],
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -38475,30 +38118,8 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
               ],
             },
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
@@ -38515,18 +38136,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
                 ],
               ],
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -38778,43 +38388,10 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
               "Fn::ImportValue": "GuardrailStack:ExportsOutputFnGetAttGuardrailguardrail03A76CF4GuardrailIdDBA991AF",
             },
             "GUARDRAIL_VERSION": "DRAFT",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -38905,65 +38482,26 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
         },
         "Environment": {
           "Variables": {
-            "AGENT_MAP": {
-              "Fn::Join": [
-                "",
-                [
-                  "{"SearchEngine":{"agentId":"",
-                  {
-                    "Fn::ImportValue": "WebSearchAgentStack:ExportsOutputFnGetAttAgentSearchAgent3AF6EC6FAgentIdF3D3B4F6",
-                  },
-                  "","aliasId":"",
-                  {
-                    "Fn::ImportValue": "WebSearchAgentStack:ExportsOutputFnGetAttAgentSearchAgentAliasD59C2A47AgentAliasId0289A97F",
-                  },
-                  ""},"CodeInterpreter":{"agentId":"",
-                  {
-                    "Fn::ImportValue": "WebSearchAgentStack:ExportsOutputFnGetAttAgentCodeInterpreterAgent98889BFEAgentIdFAC9D557",
-                  },
-                  "","aliasId":"",
-                  {
-                    "Fn::ImportValue": "WebSearchAgentStack:ExportsOutputFnGetAttAgentCodeInterpreterAgentAliasB6F54C31AgentAliasIdE516C748",
-                  },
-                  ""}}",
-                ],
-              ],
-            },
             "BUCKET_NAME": {
               "Ref": "APIFileBucket8FB29855",
             },
+            "BUILTIN_AGENTS_JSON": {
+              "Fn::GetAtt": [
+                "AgentRemoteOutputs90CFA880",
+                "Agents",
+              ],
+            },
             "CROSS_ACCOUNT_BEDROCK_ROLE_ARN": "",
+            "CUSTOM_AGENTS_JSON": "[]",
             "GUARDRAIL_IDENTIFIER": {
               "Fn::ImportValue": "GuardrailStack:ExportsOutputFnGetAttGuardrailguardrail03A76CF4GuardrailIdDBA991AF",
             },
             "GUARDRAIL_VERSION": "DRAFT",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
             "KNOWLEDGE_BASE_ID": {
               "Fn::ImportValue": "RagKnowledgeBaseStack:ExportsOutputRefKnowledgeBaseD054384B",
             },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "QUERY_DECOMPOSITION_ENABLED": "false",
             "RERANKING_MODEL_ID": "",
@@ -38974,18 +38512,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
               "Ref": "AuthUserPool8115E87F",
             },
             "USER_POOL_PROXY_ENDPOINT": "",
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -39119,46 +38646,13 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
               "Fn::ImportValue": "GuardrailStack:ExportsOutputFnGetAttGuardrailguardrail03A76CF4GuardrailIdDBA991AF",
             },
             "GUARDRAIL_VERSION": "DRAFT",
-            "IMAGE_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
-            "MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "IMAGE_GENERATION_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
+            "MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
             "MODEL_REGION": "us-east-1",
             "TABLE_NAME": {
               "Ref": "DatabaseTableF104A135",
             },
-            "VIDEO_GENERATION_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "VIDEO_GENERATION_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",
@@ -40095,6 +39589,252 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
       "Type": "AWS::IAM::Policy",
       "UpdateReplacePolicy": "Delete",
     },
+    "AgentRemoteOutputs90CFA880": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "AgentRemoteOutputsMyProviderframeworkonEventF9C28988",
+            "Arn",
+          ],
+        },
+        "randomString": "RANDOM-STRING-REPLACED",
+        "regionName": "us-east-1",
+        "stackName": "WebSearchAgentStack",
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyHandler04E7AFB1": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "AgentRemoteOutputsMyHandlerServiceRoleDefaultPolicy9D946EF9",
+        "AgentRemoteOutputsMyHandlerServiceRole44123FB4",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456890123-us-east-1",
+          "S3Key": "HASH-REPLACED.zip",
+        },
+        "Handler": "remote-outputs.on_event",
+        "Role": {
+          "Fn::GetAtt": [
+            "AgentRemoteOutputsMyHandlerServiceRole44123FB4",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.9",
+      },
+      "Type": "AWS::Lambda::Function",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyHandlerServiceRole44123FB4": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyHandlerServiceRoleDefaultPolicy9D946EF9": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "cloudformation:DescribeStacks",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AgentRemoteOutputsMyHandlerServiceRoleDefaultPolicy9D946EF9",
+        "Roles": [
+          {
+            "Ref": "AgentRemoteOutputsMyHandlerServiceRole44123FB4",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyProviderframeworkonEventF9C28988": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleDefaultPolicy5E7D4C8A",
+        "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleFE28477D",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456890123-us-east-1",
+          "S3Key": "HASH-REPLACED.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (GenerativeAiUseCasesStack/AgentRemoteOutputs/MyProvider)",
+        "Environment": {
+          "Variables": {
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "AgentRemoteOutputsMyHandler04E7AFB1",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "LoggingConfig": {
+          "ApplicationLogLevel": "FATAL",
+          "LogFormat": "JSON",
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleFE28477D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs22.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyProviderframeworkonEventLogRetention05F81B10": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "AgentRemoteOutputsMyProviderframeworkonEventF9C28988",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 1,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleDefaultPolicy5E7D4C8A": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "AgentRemoteOutputsMyHandler04E7AFB1",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "AgentRemoteOutputsMyHandler04E7AFB1",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "AgentRemoteOutputsMyHandler04E7AFB1",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleDefaultPolicy5E7D4C8A",
+        "Roles": [
+          {
+            "Ref": "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleFE28477D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AgentRemoteOutputsMyProviderframeworkonEventServiceRoleFE28477D": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Delete",
+    },
     "ApiBuildWeb746ABF13": {
       "DeletionPolicy": "Delete",
       "Properties": {
@@ -40114,7 +39854,6 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
         "destinationBucketName": "cdk-hnb659fds-assets-123456890123-us-east-1",
         "environment": {
           "NODE_OPTIONS": "--max-old-space-size=4096",
-          "VITE_APP_AGENTS": "[{"displayName":"SearchEngine","description":"Agent with Web Search Functionality"},{"displayName":"CodeInterpreter","description":"Agent with Code Interpreter Functionality"}]",
           "VITE_APP_AGENT_CORE_AGENT_BUILDER_ENABLED": "true",
           "VITE_APP_AGENT_CORE_AGENT_BUILDER_RUNTIME": {
             "Fn::Join": [
@@ -40185,8 +39924,15 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
           },
           "VITE_APP_BRANDING_LOGO_PATH": "",
           "VITE_APP_BRANDING_TITLE": "",
+          "VITE_APP_BUILTIN_AGENTS_JSON": {
+            "Fn::GetAtt": [
+              "AgentRemoteOutputs90CFA880",
+              "Agents",
+            ],
+          },
           "VITE_APP_COGNITO_IDENTITY_POOL_PROXY_ENDPOINT": "",
           "VITE_APP_COGNITO_USER_POOL_PROXY_ENDPOINT": "",
+          "VITE_APP_CUSTOM_AGENTS_JSON": "[]",
           "VITE_APP_ENDPOINT_NAMES": "[]",
           "VITE_APP_FLOWS": "[]",
           "VITE_APP_FLOW_STREAM_FUNCTION_ARN": {
@@ -40199,34 +39945,12 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
           "VITE_APP_IDENTITY_POOL_ID": {
             "Ref": "AuthIdentityPool659E7F64",
           },
-          "VITE_APP_IMAGE_MODEL_IDS": {
-            "Fn::Join": [
-              "",
-              [
-                "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1","inferenceProfileArn":"",
-                {
-                  "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfilestabilitystablediffusionxlv1InferenceProfileArn20CB2491",
-                },
-                ""}]",
-              ],
-            ],
-          },
+          "VITE_APP_IMAGE_MODEL_IDS": "[{"modelId":"stability.stable-diffusion-xl-v1","region":"us-east-1"}]",
           "VITE_APP_INLINE_AGENTS": "false",
           "VITE_APP_MCP_ENABLED": "false",
           "VITE_APP_MCP_ENDPOINT": "",
           "VITE_APP_MCP_SERVERS_CONFIG": "{"time":{"metadata":{"category":"Utility","description":"Provides current time and date functionality"}},"aws-knowledge-mcp-server":{"metadata":{"category":"AWS","description":"AWS Knowledge Base MCP server for enterprise knowledge access"}},"awslabs.aws-documentation-mcp-server":{"metadata":{"category":"AWS","description":"Access AWS documentation and guides"}},"awslabs.cdk-mcp-server":{"metadata":{"category":"AWS","description":"AWS CDK code generation and assistance"}},"awslabs.aws-diagram-mcp-server":{"metadata":{"category":"AWS","description":"Generate AWS architecture diagrams"}},"awslabs.nova-canvas-mcp-server":{"metadata":{"category":"AI/ML","description":"Amazon Nova Canvas image generation"}},"tavily-search":{"metadata":{"category":"Search","description":"Web search and research capabilities powered by Tavily"}},"tavily-gateway":{"metadata":{"category":"Search","description":"Web search and research capabilities powered by Tavily"}}}",
-          "VITE_APP_MODEL_IDS": {
-            "Fn::Join": [
-              "",
-              [
-                "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                {
-                  "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileanthropicclaude3sonnet20240229v10InferenceProfileArnB9E9C888",
-                },
-                ""}]",
-              ],
-            ],
-          },
+          "VITE_APP_MODEL_IDS": "[{"modelId":"anthropic.claude-3-sonnet-20240229-v1:0","region":"us-east-1"}]",
           "VITE_APP_MODEL_REGION": "us-east-1",
           "VITE_APP_OPTIMIZE_PROMPT_FUNCTION_ARN": {
             "Fn::GetAtt": [
@@ -40262,18 +39986,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
               ],
             ],
           },
-          "VITE_APP_SPEECH_TO_SPEECH_MODEL_IDS": {
-            "Fn::Join": [
-              "",
-              [
-                "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                {
-                  "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovasonicv10InferenceProfileArnDDA114DD",
-                },
-                ""}]",
-              ],
-            ],
-          },
+          "VITE_APP_SPEECH_TO_SPEECH_MODEL_IDS": "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1"}]",
           "VITE_APP_SPEECH_TO_SPEECH_NAMESPACE": "speech-to-speech",
           "VITE_APP_USER_POOL_CLIENT_ID": {
             "Ref": "AuthUserPoolclientA74673A9",
@@ -40282,18 +39995,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
             "Ref": "AuthUserPool8115E87F",
           },
           "VITE_APP_USE_CASE_BUILDER_ENABLED": "true",
-          "VITE_APP_VIDEO_MODEL_IDS": {
-            "Fn::Join": [
-              "",
-              [
-                "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                {
-                  "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovareelv10InferenceProfileArn5E8F5854",
-                },
-                ""}]",
-              ],
-            ],
-          },
+          "VITE_APP_VIDEO_MODEL_IDS": "[{"modelId":"amazon.nova-reel-v1:0","region":"us-east-1"}]",
         },
         "outputEnvFile": false,
         "outputSourceDirectory": "../packages/web/dist",
@@ -43558,18 +43260,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
         },
         "Environment": {
           "Variables": {
-            "SPEECH_TO_SPEECH_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovasonicv10InferenceProfileArnDDA114DD",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "SPEECH_TO_SPEECH_MODEL_IDS": "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1"}]",
             "SPEECH_TO_SPEECH_TASK_FUNCTION_ARN": {
               "Fn::GetAtt": [
                 "SpeechToSpeechTaskC1149BF3",
@@ -43698,18 +43389,7 @@ exports[`GenerativeAiUseCases matches the snapshot 6`] = `
               ],
             },
             "NAMESPACE": "speech-to-speech",
-            "SPEECH_TO_SPEECH_MODEL_IDS": {
-              "Fn::Join": [
-                "",
-                [
-                  "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1","inferenceProfileArn":"",
-                  {
-                    "Fn::ImportValue": "ApplicationInferenceProfileStackus-east-1:ExportsOutputFnGetAttApplicationInferenceProfileamazonnovasonicv10InferenceProfileArnDDA114DD",
-                  },
-                  ""}]",
-                ],
-              ],
-            },
+            "SPEECH_TO_SPEECH_MODEL_IDS": "[{"modelId":"amazon.nova-sonic-v1:0","region":"us-east-1"}]",
           },
         },
         "Handler": "index.handler",

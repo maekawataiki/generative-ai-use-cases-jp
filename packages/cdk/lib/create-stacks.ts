@@ -11,6 +11,8 @@ import { ProcessedStackInput } from './stack-input';
 import { VideoTmpBucketStack } from './video-tmp-bucket-stack';
 import { ApplicationInferenceProfileStack } from './application-inference-profile-stack';
 import { ClosedNetworkStack } from './closed-network-stack';
+import { RemoteOutputs } from 'cdk-remote-stack';
+import { REMOTE_OUTPUT_KEYS } from './remote-output-keys';
 
 class DeletionPolicySetter implements cdk.IAspect {
   constructor(private readonly policy: cdk.RemovalPolicy) {}
@@ -22,16 +24,38 @@ class DeletionPolicySetter implements cdk.IAspect {
   }
 }
 
-// Merges inference profile ARNs into ModelIds and returns a new array
+// Merges inference profile ARNs into ModelIds and returns a new array using RemoteOutputs
 const mergeModelIdsAndInferenceProfileArn = (
   modelIds: ProcessedStackInput['modelIds'],
-  inferenceProfileStacks: Record<string, ApplicationInferenceProfileStack>
+  inferenceProfileStacks: Record<string, ApplicationInferenceProfileStack>,
+  scope: cdk.App
 ) => {
   return modelIds.map((modelId) => {
     const result = { ...modelId };
     const stack = inferenceProfileStacks[modelId.region];
-    if (stack && stack.inferenceProfileArns[modelId.modelId]) {
-      result.inferenceProfileArn = stack.inferenceProfileArns[modelId.modelId];
+    if (stack) {
+      try {
+        const remoteOutputs = new RemoteOutputs(
+          scope,
+          `InferenceProfile-${modelId.region}-RemoteOutputs`,
+          {
+            stack: stack,
+            alwaysUpdate: true,
+          }
+        );
+        const inferenceProfileArnsJson = remoteOutputs.get(
+          REMOTE_OUTPUT_KEYS.INFERENCE_PROFILE_ARNS
+        );
+        if (inferenceProfileArnsJson) {
+          const inferenceProfileArns = JSON.parse(inferenceProfileArnsJson);
+          const inferenceProfileArn = inferenceProfileArns[modelId.modelId];
+          if (inferenceProfileArn) {
+            result.inferenceProfileArn = inferenceProfileArn;
+          }
+        }
+      } catch (e) {
+        // Stack doesn't exist or output not found, continue without inference profile
+      }
     }
     return result;
   });
@@ -71,19 +95,23 @@ export const createStacks = (app: cdk.App, params: ProcessedStackInput) => {
   const updatedParams: ProcessedStackInput = JSON.parse(JSON.stringify(params));
   updatedParams.modelIds = mergeModelIdsAndInferenceProfileArn(
     params.modelIds,
-    inferenceProfileStacks
+    inferenceProfileStacks,
+    app
   );
   updatedParams.imageGenerationModelIds = mergeModelIdsAndInferenceProfileArn(
     params.imageGenerationModelIds,
-    inferenceProfileStacks
+    inferenceProfileStacks,
+    app
   );
   updatedParams.videoGenerationModelIds = mergeModelIdsAndInferenceProfileArn(
     params.videoGenerationModelIds,
-    inferenceProfileStacks
+    inferenceProfileStacks,
+    app
   );
   updatedParams.speechToSpeechModelIds = mergeModelIdsAndInferenceProfileArn(
     params.speechToSpeechModelIds,
-    inferenceProfileStacks
+    inferenceProfileStacks,
+    app
   );
 
   // GenU Stack
@@ -157,13 +185,12 @@ export const createStacks = (app: cdk.App, params: ProcessedStackInput) => {
           region: updatedParams.modelRegion,
         },
         params: updatedParams,
-        crossRegionReferences: true,
         vpc: closedNetworkStack?.vpc,
       })
     : null;
 
   // Guardrail
-  const guardrail = updatedParams.guardrailEnabled
+  const guardrailStack = updatedParams.guardrailEnabled
     ? new GuardrailStack(app, `GuardrailStack${updatedParams.env}`, {
         env: {
           account: updatedParams.account,
@@ -182,7 +209,6 @@ export const createStacks = (app: cdk.App, params: ProcessedStackInput) => {
             region: params.agentCoreRegion,
           },
           params: params,
-          crossRegionReferences: true,
         })
       : null;
 
@@ -228,8 +254,8 @@ export const createStacks = (app: cdk.App, params: ProcessedStackInput) => {
       knowledgeBaseId: ragKnowledgeBaseStack?.knowledgeBaseId,
       knowledgeBaseDataSourceBucketName:
         ragKnowledgeBaseStack?.dataSourceBucketName,
-      // Agent
-      agents: agentStack?.agents,
+      agentStack: agentStack || undefined,
+
       // Agent Core
       createGenericAgentCoreRuntime: params.createGenericAgentCoreRuntime,
       agentBuilderEnabled: params.agentBuilderEnabled,
@@ -237,7 +263,7 @@ export const createStacks = (app: cdk.App, params: ProcessedStackInput) => {
       // Video Generation
       videoBucketRegionMap,
       // Guardrail
-      guardrailIdentifier: guardrail?.guardrailIdentifier,
+      guardrailIdentifier: guardrailStack?.guardrailIdentifier,
       guardrailVersion: 'DRAFT',
       // WAF
       webAclId: cloudFrontWafStack?.webAclArn,
@@ -255,6 +281,14 @@ export const createStacks = (app: cdk.App, params: ProcessedStackInput) => {
         closedNetworkStack?.cognitoIdPoolProxyApi?.url ?? '',
     }
   );
+
+  // Add explicit dependencies for RemoteOutputs
+  if (agentStack) {
+    generativeAiUseCasesStack.addDependency(agentStack);
+  }
+  if (agentCoreStack) {
+    generativeAiUseCasesStack.addDependency(agentCoreStack);
+  }
 
   cdk.Aspects.of(generativeAiUseCasesStack).add(
     new DeletionPolicySetter(cdk.RemovalPolicy.DESTROY)
@@ -283,7 +317,7 @@ export const createStacks = (app: cdk.App, params: ProcessedStackInput) => {
     cloudFrontWafStack,
     ragKnowledgeBaseStack,
     agentStack,
-    guardrail,
+    guardrailStack,
     agentCoreStack,
     generativeAiUseCasesStack,
     dashboardStack,

@@ -88,7 +88,7 @@ describe('GenerativeAiUseCases', () => {
       ragKnowledgeBaseStack,
       agentStack,
       agentCoreStack,
-      guardrail,
+      guardrailStack,
       generativeAiUseCasesStack,
       dashboardStack,
     } = createStacks(app, params);
@@ -99,7 +99,7 @@ describe('GenerativeAiUseCases', () => {
       !ragKnowledgeBaseStack ||
       !agentStack ||
       !agentCoreStack ||
-      !guardrail ||
+      !guardrailStack ||
       !generativeAiUseCasesStack ||
       !dashboardStack
     ) {
@@ -109,7 +109,7 @@ describe('GenerativeAiUseCases', () => {
     const ragKnowledgeBaseTemplate = Template.fromStack(ragKnowledgeBaseStack);
     const agentTemplate = Template.fromStack(agentStack);
     const agentCoreTemplate = Template.fromStack(agentCoreStack);
-    const guardrailTemplate = Template.fromStack(guardrail);
+    const guardrailTemplate = Template.fromStack(guardrailStack);
     const generativeAiUseCasesTemplate = Template.fromStack(
       generativeAiUseCasesStack
     );
@@ -140,7 +140,7 @@ describe('GenerativeAiUseCases', () => {
       ragKnowledgeBaseStack,
       agentStack,
       agentCoreStack,
-      guardrail,
+      guardrailStack,
       generativeAiUseCasesStack,
       dashboardStack,
     } = createStacks(app, params);
@@ -151,7 +151,7 @@ describe('GenerativeAiUseCases', () => {
       !ragKnowledgeBaseStack ||
       !agentStack ||
       !agentCoreStack ||
-      !guardrail ||
+      !guardrailStack ||
       !generativeAiUseCasesStack ||
       !dashboardStack
     ) {
@@ -161,7 +161,7 @@ describe('GenerativeAiUseCases', () => {
     const ragKnowledgeBaseTemplate = Template.fromStack(ragKnowledgeBaseStack);
     const agentTemplate = Template.fromStack(agentStack);
     const agentCoreTemplate = Template.fromStack(agentCoreStack);
-    const guardrailTemplate = Template.fromStack(guardrail);
+    const guardrailTemplate = Template.fromStack(guardrailStack);
     const generativeAiUseCasesTemplate = Template.fromStack(
       generativeAiUseCasesStack
     );
