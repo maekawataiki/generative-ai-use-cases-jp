@@ -547,6 +547,10 @@ export const modelMetadata: Record<string, ModelMetadata> = {
     flags: MODEL_FEATURE.TEXT_IMAGE,
     displayName: 'NVIDIA Nemotron Nano 12B v2 VL BF16',
   },
+  'nvidia.nemotron-nano-3-30b': {
+    flags: MODEL_FEATURE.TEXT_ONLY,
+    displayName: 'NVIDIA Nemotron Nano 3 30B',
+  },
 
   // === Image ===
 
