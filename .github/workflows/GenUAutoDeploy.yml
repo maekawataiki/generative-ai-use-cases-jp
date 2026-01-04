@@ -41,13 +41,6 @@ jobs:
         id: deploy
         run: |
           ENV_NAME="pr-${{ github.event.pull_request.number }}"
-          echo "env-name=${ENV_NAME}" >> $GITHUB_OUTPUT
-
-          DEPLOY_OUTPUT=$(npm -w packages/cdk run -- cdk deploy --require-approval never --all -c env=${ENV_NAME} 2>&1)
-          echo "$DEPLOY_OUTPUT"
-
-          WEB_URL=$(echo "$DEPLOY_OUTPUT" | grep -oP 'GenerativeAiUseCasesStack.*\.WebUrl = \K.*' | head -1)
-          STACK_ARN=$(echo "$DEPLOY_OUTPUT" | grep -oP 'arn:aws:cloudformation:.*:stack/GenerativeAiUseCasesStack.*' | head -1)
-
-          echo "web-url=${WEB_URL}" >> $GITHUB_OUTPUT
-          echo "stack-arn=${STACK_ARN}" >> $GITHUB_OUTPUT
+          echo "Deploying environment: ${ENV_NAME}"
+          npm -w packages/cdk run -- cdk deploy --require-approval never --all -c env=${ENV_NAME}
+          echo "Deployment completed successfully"
