@@ -1,4 +1,4 @@
-name: Deploy to AWS
+name: GenU AutoDeploy
 
 on:
   pull_request:
@@ -12,8 +12,18 @@ jobs:
   deploy:
     if: github.event.label.name == 'auto-deploy'
     runs-on: ubuntu-latest
+    outputs:
+      web-url: ${{ steps.deploy.outputs.web-url }}
+      env-name: ${{ steps.deploy.outputs.env-name }}
+      stack-arn: ${{ steps.deploy.outputs.stack-arn }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -21,6 +31,23 @@ jobs:
           role-to-assume: arn:aws:iam::047385030331:role/GenUAutoDeployRole
           aws-region: ap-northeast-1
 
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: CDK Bootstrap
+        run: npx -w packages/cdk cdk bootstrap
+
       - name: Deploy
+        id: deploy
         run: |
-          aws s3 ls
+          ENV_NAME="pr-${{ github.event.pull_request.number }}"
+          echo "env-name=${ENV_NAME}" >> $GITHUB_OUTPUT
+
+          DEPLOY_OUTPUT=$(npm -w packages/cdk run -- cdk deploy --require-approval never --all -c env=${ENV_NAME} 2>&1)
+          echo "$DEPLOY_OUTPUT"
+
+          WEB_URL=$(echo "$DEPLOY_OUTPUT" | grep -oP 'GenerativeAiUseCasesStack.*\.WebUrl = \K.*' | head -1)
+          STACK_ARN=$(echo "$DEPLOY_OUTPUT" | grep -oP 'arn:aws:cloudformation:.*:stack/GenerativeAiUseCasesStack.*' | head -1)
+
+          echo "web-url=${WEB_URL}" >> $GITHUB_OUTPUT
+          echo "stack-arn=${STACK_ARN}" >> $GITHUB_OUTPUT
