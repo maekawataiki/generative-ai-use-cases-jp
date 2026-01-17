@@ -1,0 +1,72 @@
+node_modules/
+**/node_modules/
+npm-debug.log*
+
+# Build artifacts
+dist/
+build/
+.next/
+out/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Cache directories
+.cache/
+.vite/
+.turbo/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+**/.env
+
+# Version control
+.git/
+.gitignore
+.gitattributes
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+coverage/
+.nyc_output/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# CDK specific
+cdk.out/
+cdk.context.json
+.cdk.staging/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+.venv/
+
+# AWS
+.aws/
+
+# Misc
+.husky/
+.github/
