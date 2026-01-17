@@ -40,6 +40,7 @@ import DiffMatchPatch from 'diff-match-patch';
 import { DocumentComment } from 'generative-ai-use-cases';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
+import { parseContent } from './lib/contentParser';
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -225,19 +226,17 @@ const TailwindAdvancedEditor: React.FC<Props> = ({ initialSentence }) => {
   // Set the initial content
   useEffect(() => {
     const storedContent = window.localStorage.getItem('novel-content');
-    const content = initialSentence
-      ? {
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [{ type: 'text', text: initialSentence }],
-            },
-          ],
-        }
-      : storedContent
-        ? JSON.parse(storedContent)
-        : getDefaultEditorContent(t);
+    let content: JSONContent;
+
+    if (initialSentence) {
+      // Parse the initial sentence to detect and handle Markdown/HTML
+      content = parseContent(initialSentence);
+    } else if (storedContent) {
+      content = JSON.parse(storedContent);
+    } else {
+      content = getDefaultEditorContent(t);
+    }
+
     setInitialContent(content);
   }, [initialSentence, t]);
 
