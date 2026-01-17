@@ -1,6 +1,14 @@
 import { JSONContent } from 'novel';
 
 /**
+ * Type definition for a TipTap mark (formatting applied to text)
+ */
+type TextMark = {
+  type: string;
+  attrs?: Record<string, unknown>;
+};
+
+/**
  * Detect if the content is likely HTML
  */
 export const isHTML = (content: string): boolean => {
@@ -44,8 +52,8 @@ export const parseHTML = (htmlContent: string): JSONContent => {
     const content: JSONContent[] = [];
 
     // Helper to collect text marks
-    const getMarks = (element: Element): Array<{ type: string; attrs?: any }> => {
-      const marks: Array<{ type: string; attrs?: any }> = [];
+    const getMarks = (element: Element): TextMark[] => {
+      const marks: TextMark[] = [];
       const tagName = element.tagName.toLowerCase();
 
       switch (tagName) {
@@ -80,7 +88,7 @@ export const parseHTML = (htmlContent: string): JSONContent => {
     // Process inline elements (text with marks)
     const processInlineNode = (
       node: Node,
-      inheritedMarks: Array<{ type: string; attrs?: any }> = []
+      inheritedMarks: TextMark[] = []
     ): JSONContent[] => {
       const results: JSONContent[] = [];
 

@@ -92,7 +92,7 @@ describe('contentParser', () => {
     it('should parse links', () => {
       const result = parseHTML('<p><a href="https://example.com">Link</a></p>');
       const linkMark = result.content![0].content![0].marks?.find(
-        (m: any) => m.type === 'link'
+        (m: { type: string; attrs?: Record<string, unknown> }) => m.type === 'link'
       );
       expect(linkMark).toBeDefined();
       expect(linkMark?.attrs?.href).toBe('https://example.com');
@@ -135,7 +135,7 @@ describe('contentParser', () => {
     it('should parse markdown links', () => {
       const result = parseMarkdown('[link](https://example.com)');
       const linkMark = result.content![0].content![0].marks?.find(
-        (m: any) => m.type === 'link'
+        (m: { type: string; attrs?: Record<string, unknown> }) => m.type === 'link'
       );
       expect(linkMark).toBeDefined();
       expect(linkMark?.attrs?.href).toBe('https://example.com');
